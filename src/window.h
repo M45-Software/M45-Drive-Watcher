@@ -27,6 +27,7 @@ public slots:
 protected:
     void closeEvent(QCloseEvent *event) override;
 private:
+    friend class WindowTests;
     bool m_demo;
     bool m_demoWarning;
     bool m_saveFailed = false;

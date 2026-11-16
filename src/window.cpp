@@ -468,7 +468,9 @@ Window::Window(bool demo, bool demoWarning, int initialTab)
         if (reason == QSystemTrayIcon::Trigger) showTrayPopup();
         if (reason == QSystemTrayIcon::DoubleClick) { m_popup->hide(); Show(); }
     });
-    connect(&m_tray, &QSystemTrayIcon::messageClicked, this, &Window::Show);
+    // Qt's D-Bus tray backend can emit messageClicked for other applications'
+    // notifications. It provides no notification ID to check ownership, so use
+    // the tray's explicit open controls instead.
     if (!demo) m_tray.show();
     auto *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Window::poll);

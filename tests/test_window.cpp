@@ -37,6 +37,18 @@ private slots:
         QCOMPARE(settings.value("showWindowAtLogin").toBool(), false);
     }
 
+    void unscopedNotificationClickDoesNotOpenWindow() {
+        Window window(true);
+        QVERIFY(!window.isVisible());
+        // Reproduce the unscoped signal emitted by Qt's D-Bus tray backend
+        // when an unrelated desktop notification is clicked.
+        window.m_tray.messageClicked();
+        QVERIFY(!window.isVisible());
+        QVERIFY(!window.trayPopup()->isVisible());
+
+        window.m_tray.activated(QSystemTrayIcon::DoubleClick);
+        QVERIFY(window.isVisible());
+    }
     void previewShowsDualUnitsAndNoWrites() {
         Window window(true);
         window.poll();

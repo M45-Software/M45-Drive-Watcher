@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.14
+
+- Stop unrelated desktop notification clicks from opening M45 Drive Watcher on KDE. Open the app using the tray controls; notification clicks no longer activate the window.
+
 ## 0.1.13
 
 - Wait a full minute after boot before warning about a missing collector snapshot.
